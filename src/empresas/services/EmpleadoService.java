@@ -2,24 +2,21 @@ package empresas.services;
 
 import empresas.models.Empleado;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EmpleadoService {
 
     private Scanner sc;
     private Empleado empleado;
-    private Empleado[] listaEmpleados;
+    private ArrayList<Empleado> listaEmpleados;
 
     public EmpleadoService() {
         sc = new Scanner(System.in);
-        crearListaEmpleados();
+        listaEmpleados = new ArrayList<>();
+
     }
 
-    private void crearListaEmpleados() {
-        System.out.println("Ingrese la cantidad de empleados");
-        int cantidad = sc.nextInt();
-        listaEmpleados = new Empleado[cantidad];
-    }
 
     public void menu() {
         int opcion;
@@ -29,6 +26,7 @@ public class EmpleadoService {
             System.out.println("2 - MODIFICAR EMPLEADO");
             System.out.println("3 - BUSCAR EMPLEADO");
             System.out.println("4 - LISTAR EMPLEADOS");
+            System.out.println("5 - ELIMINAR EMPLEADO");
             System.out.println("0 - SALIR");
             System.out.println("Ingrese una opcion del menu");
             opcion = sc.nextInt();
@@ -45,6 +43,9 @@ public class EmpleadoService {
                 case 4:
                     listarEmpleados();
                     break;
+                case 5:
+                    eliminarEmpleado();
+                    break;
                 default:
                     opcion = 0;
                     System.out.println("Gracias por usar este menu");
@@ -54,34 +55,32 @@ public class EmpleadoService {
 
     private void crearEmpleado() {
         System.out.println("::CREAR EMPLEADOS::");
-        for (int i = 0; i < listaEmpleados.length; i++) {
 
-            System.out.println("::CREAR EMPLEADO::");
 
-            System.out.println("Ingrese el documento del empleado");
-            String documento;
-            do {
-                documento=sc.next();
-            }while (documentoExistente(documento));
+        System.out.println("Ingrese el documento del empleado");
+        String documento;
+        do {
+            documento = sc.next();
+        } while (documentoExistente(documento));
 
-            System.out.println("Ingrese el nombre del empleado");
-            String nombre = sc.next();
+        System.out.println("Ingrese el nombre del empleado");
+        String nombre = sc.next();
 
-            System.out.println("Ingrese el numero de horas trabajadas");
-            int horas = sc.nextInt();
+        System.out.println("Ingrese el numero de horas trabajadas");
+        int horas = sc.nextInt();
 
-            System.out.println("Ingrese el valor de la hora");
-            double valor = sc.nextDouble();
+        System.out.println("Ingrese el valor de la hora");
+        double valor = sc.nextDouble();
 
-            listaEmpleados[i] = new Empleado(documento, nombre, horas, valor, calcularSueldo(horas, valor));
-        }
+        listaEmpleados.add(new Empleado(documento, nombre, horas, valor, calcularSueldo(horas, valor)));
+
 
     }
 
     private void modificarEmpleado() {
         int posicion = buscarEmpleado();
-        if (posicion>= 0) {
-            empleado= listaEmpleados[posicion];
+        if (posicion >= 0) {
+            empleado = listaEmpleados.get(posicion);
             System.out.println("::MODIFICAR EMPLEADO::");
 
             System.out.println("Ingrese el nombre del empleado");
@@ -97,33 +96,32 @@ public class EmpleadoService {
             empleado.setValorHora(valor);
 
             empleado.setSueldo(calcularSueldo(horas, valor));
-            listaEmpleados[posicion]= empleado;
+            listaEmpleados.set(posicion , empleado);
 
 
         }
-
     }
 
-    private int  buscarEmpleado() {
+    private int buscarEmpleado() {
         System.out.println("::Buscar empleado::");
         System.out.println("Ingrese el numero de documento del empleado");
         String documento = sc.next();
-        for (int i = 0; i < listaEmpleados.length; i++) {
-            if (listaEmpleados[i].getDocumento().equals(documento)) {
-                imprimirEmpleado(listaEmpleados[i]);
-                return i;
 
-
+        empleado = null;
+        for (Empleado empleadoEncontrado:listaEmpleados) {
+            if (empleado.getDocumento().equals(documento)) {
+                empleado = empleadoEncontrado;
+                imprimirEmpleado(empleado);
+                break;
             }
         }
-        System.out.println("Registro no encontrado");
-        return -1;
+        return listaEmpleados.indexOf(empleado);
     }
 
     private void listarEmpleados() {
         System.out.println("::Listar empleados::");
-        for (int i =0; i<listaEmpleados.length; i++){
-            imprimirEmpleado(listaEmpleados[i]);
+        for (Empleado empleado:listaEmpleados) {
+            imprimirEmpleado(empleado);
 
         }
     }
@@ -132,15 +130,15 @@ public class EmpleadoService {
         return horas * valorHora;
     }
 
-    private void imprimirEmpleado(Empleado empleado){
-        System.out.println(empleado.getDocumento()+ " | "+ empleado.getNombre()+ " | "
-                +empleado.getSueldo());
+    private void imprimirEmpleado(Empleado empleado) {
+        System.out.println(empleado.getDocumento() + " | " + empleado.getNombre() + " | "
+                + empleado.getSueldo());
 
     }
 
-    private boolean documentoExistente(String documento){
-        for(Empleado empleado:listaEmpleados){
-            if (empleado != null && empleado.getDocumento().equals(documento)){
+    private boolean documentoExistente(String documento) {
+        for (Empleado empleado : listaEmpleados) {
+            if (empleado != null && empleado.getDocumento().equals(documento)) {
                 System.out.println("El documento ya existe, Ingrese un documento diferente");
                 return true;
             }
@@ -148,5 +146,12 @@ public class EmpleadoService {
         return false;
 
     }
-
+    private void eliminarEmpleado() {
+        System.out.println("::ELIMINAR EMPLEADO::");
+        int posicion = buscarEmpleado();
+        if (posicion >= 0) {
+            listaEmpleados.remove(posicion);
+            System.out.println("Empleado eliminado con éxito.");
+        }
+    }
 }
