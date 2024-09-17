@@ -75,6 +75,7 @@ public class EmpleadoService {
         listaEmpleados.add(new Empleado(documento, nombre, horas, valor, calcularSueldo(horas, valor)));
 
 
+
     }
 
     private void modificarEmpleado() {
