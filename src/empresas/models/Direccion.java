@@ -8,22 +8,20 @@ public class Direccion {
     private String ciudad;
     private String codigoPostal;
 
-
-
     public Direccion() {
-        this.codigoPostal = "";
-        this.ciudad = "";
-        this.barrio = "";
-        this.numeroCasa = "";
         this.calle = "";
+        this.numeroCasa = "";
+        this.barrio = "";
+        this.ciudad = "";
+        this.codigoPostal = "";
     }
 
-    public Direccion(String codigoPostal, String ciudad, String barrio, String numeroCasa, String calle) {
-        this.codigoPostal = codigoPostal;
-        this.ciudad = ciudad;
-        this.barrio = barrio;
-        this.numeroCasa = numeroCasa;
+    public Direccion(String calle, String numeroCasa, String barrio, String ciudad, String codigoPostal) {
         this.calle = calle;
+        this.numeroCasa = numeroCasa;
+        this.barrio = barrio;
+        this.ciudad = ciudad;
+        this.codigoPostal = codigoPostal;
     }
 
     @Override
@@ -37,24 +35,4 @@ public class Direccion {
                 '}';
     }
 
-    public void setCalle(String calle) {
-        this.calle = calle;
-    }
-
-    public void setNumeroCasa(String numeroCasa) {
-        this.numeroCasa = numeroCasa;
-    }
-
-    public void setBarrio(String barrio) {
-        this.barrio = barrio;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
-    }
 }
-
