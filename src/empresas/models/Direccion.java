@@ -8,6 +8,7 @@ public class Direccion {
     private String ciudad;
     private String codigoPostal;
 
+
     public Direccion() {
         this.calle = "";
         this.numeroCasa = "";

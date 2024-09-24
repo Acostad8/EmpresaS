@@ -64,10 +64,9 @@ public class EmpleadoService {
 
         System.out.println("Ingrese el documento del empleado");
         String documento;
-        do {
+        do{
             documento = sc.next();
-        } while (documentoExistente(documento));
-
+        }while (documentoExistente(documento));
         System.out.println("Ingrese el nombre del empleado");
         String nombre = sc.next();
 
@@ -86,6 +85,7 @@ public class EmpleadoService {
 
     private void modificarEmpleado() {
         empleado = buscarEmpleado();
+
 
         if(empleado != null){
             System.out.println("::MODIFICAR EMPLEADO::");
@@ -117,10 +117,11 @@ public class EmpleadoService {
         String documento = sc.next();
 
 
+
         return listaEmpleados.get(documento);
     }
 
-    private void listarEmpleados() {
+    private void listarEmpleados() {    1
         System.out.println("::Listar empleados::");
         for (String documento : listaEmpleados.keySet()) {
             Empleado empleado = listaEmpleados.get(documento);
