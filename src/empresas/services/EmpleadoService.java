@@ -1,10 +1,12 @@
 package empresas.services;
 
+import empresas.EmpresaS;
 import empresas.models.Direccion;
 import empresas.models.Empleado;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EmpleadoService {
@@ -23,38 +25,46 @@ public class EmpleadoService {
 
 
     public void menu() {
-        int opcion;
-        do {
-            System.out.println("::MENU:: = ");
-            System.out.println("1 - CREAR EMPLEADO");
-            System.out.println("2 - MODIFICAR EMPLEADO");
-            System.out.println("3 - BUSCAR EMPLEADO");
-            System.out.println("4 - LISTAR EMPLEADOS");
-            System.out.println("5 - ELIMINAR EMPLEADOS");
-            System.out.println("0 - SALIR");
-            System.out.println("Ingrese una opcion del menu");
-            opcion = sc.nextInt();
-            switch (opcion) {
-                case 1:
-                    crearEmpleado();
-                    break;
-                case 2:
-                    modificarEmpleado();
-                    break;
-                case 3:
-                    buscarEmpleado();
-                    break;
-                case 4:
-                    listarEmpleados();
-                    break;
-                case 5:
-                    eliminarEmpleado();
-                    break;
-                default:
-                    opcion = 0;
-                    System.out.println("Gracias por usar este menu");
-            }
-        } while (opcion != 0);
+        int opcion = 0 ;
+        try{
+            do {
+                System.out.println("::MENU:: = ");
+                System.out.println("1 - CREAR EMPLEADO");
+                System.out.println("2 - MODIFICAR EMPLEADO");
+                System.out.println("3 - BUSCAR EMPLEADO");
+                System.out.println("4 - LISTAR EMPLEADOS");
+                System.out.println("5 - ELIMINAR EMPLEADOS");
+                System.out.println("0 - SALIR");
+                System.out.println("Ingrese una opcion del menu");
+                opcion = sc.nextInt();
+                switch (opcion) {
+                    case 1:
+                        crearEmpleado();
+                        break;
+                    case 2:
+                        modificarEmpleado();
+                        break;
+                    case 3:
+                        buscarEmpleado();
+                        break;
+                    case 4:
+                        listarEmpleados();
+                        break;
+                    case 5:
+                        eliminarEmpleado();
+                        break;
+                    default:
+                        opcion = 0;
+                        System.out.println("Gracias por usar este menu");
+                }
+            } while (opcion != 0);
+
+        }catch (InputMismatchException inputMismatchException){
+            System.out.println("ingrese solo valores numericos ");
+            sc.nextLine();
+            menu();
+        }
+
     }
 
     private void crearEmpleado() {
@@ -70,11 +80,28 @@ public class EmpleadoService {
         System.out.println("Ingrese el nombre del empleado");
         String nombre = sc.next();
 
-        System.out.println("Ingrese el numero de horas trabajadas");
-        int horas = sc.nextInt();
 
-        System.out.println("Ingrese el valor de la hora");
+        int horas = sc.nextInt();
+        try {
+            System.out.println("Ingrese el numero de horas trabajadas");
+            sc.nextInt();
+
+        }catch (InputMismatchException inputMismatchException){
+            System.out.println("ingrrse solo valores numericos");
+            crearEmpleado();
+        }
+
+
         double valor = sc.nextDouble();
+        try{
+            System.out.println("Ingrese el valor de la hora");
+            sc.nextDouble();
+        }catch (InputMismatchException inputMismatchException){
+            System.out.println("ingrese solo valores numericos");
+            crearEmpleado();
+        }
+
+
 
         direccion = direccionService.crear();
 
@@ -89,18 +116,39 @@ public class EmpleadoService {
 
         if(empleado != null){
             System.out.println("::MODIFICAR EMPLEADO::");
-
             System.out.println("Ingrese el nombre del empleado");
             String nombre = sc.next();
             empleado.setNombre(nombre);
 
-            System.out.println("Ingrese el numero de horas");
-            int horas = sc.nextInt();
-            empleado.setHorasTrab(horas);
 
-            System.out.println("Ingrese el valor de la hora");
+            int horas = sc.nextInt();
+
+            try {
+                System.out.println("Ingrese el numero de horas");
+                sc.nextInt();
+                empleado.setHorasTrab(horas);
+
+            }catch (InputMismatchException inputMismatchException){
+                System.out.println("ingrese solo valores numericos");
+                modificarEmpleado();
+            }
+
+
+
+
             double valor = sc.nextDouble();
-            empleado.setValorHora(valor);
+            try {
+                System.out.println("Ingrese el valor de la hora");
+                sc.nextDouble();
+                empleado.setValorHora(valor);
+            }catch (InputMismatchException inputMismatchException){
+                System.out.println("ins¿grese solo valores numericos");
+                modificarEmpleado();
+
+            }
+
+
+
 
             empleado.setSueldo(calcularSueldo(horas, valor));
             listaEmpleados.put(empleado.getDocumento(), empleado);
@@ -121,7 +169,7 @@ public class EmpleadoService {
         return listaEmpleados.get(documento);
     }
 
-    private void listarEmpleados() {    1
+    private void listarEmpleados() {
         System.out.println("::Listar empleados::");
         for (String documento : listaEmpleados.keySet()) {
             Empleado empleado = listaEmpleados.get(documento);
