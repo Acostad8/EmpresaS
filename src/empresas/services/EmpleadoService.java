@@ -93,11 +93,7 @@ public class EmpleadoService {
             System.out.println("ingrese solo valores numericos");
             crearEmpleado();
         }
-
-
-
         direccion = direccionService.crear();
-
 
         listaEmpleados.put(documento, new Empleado(documento, nombre, horas, valor, calcularSueldo(horas, valor), direccion));
 

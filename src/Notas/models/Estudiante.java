@@ -6,21 +6,15 @@ public class Estudiante {
     private String nombre;
     private String edad;
     private String carrera;
-    private String asignatura;
     private Nota nota;
-    private double definitiva;
 
-    public Estudiante(String codigo, String nombre, String edad, String carrera, String asignatura, double examen) {
+    public Estudiante(String codigo, String nombre, String edad, String carrera ,Nota nota) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.edad = edad;
         this.carrera = carrera;
-        this.asignatura = asignatura;
+        this.nota = nota;
 
-        this.definitiva = definitiva;
-    }
-
-    public Estudiante() {
 
     }
 
@@ -56,20 +50,12 @@ public class Estudiante {
         this.carrera = carrera;
     }
 
-    public String getAsignatura() {
-        return asignatura;
+    public Nota getNota() {
+        return nota;
     }
 
-    public void setAsignatura(String asignatura) {
-        this.asignatura = asignatura;
-    }
-
-    public double getDefinitiva() {
-        return definitiva;
-    }
-
-    public void setDefinitiva(double definitiva) {
-        this.definitiva = definitiva;
+    public void setNota(Nota nota) {
+        this.nota = nota;
     }
 
     @Override
@@ -79,9 +65,7 @@ public class Estudiante {
                 ", nombre='" + nombre + '\'' +
                 ", edad='" + edad + '\'' +
                 ", carrera='" + carrera + '\'' +
-                ", asignatura='" + asignatura + '\'' +
                 ", nota=" + nota +
-                ", definitiva=" + definitiva +
                 '}';
     }
 }

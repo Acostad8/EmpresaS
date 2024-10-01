@@ -32,9 +32,7 @@ public class DireccionService {
         System.out.println("Ingrese el codigo Postal");
         String codigoPostal = sc.next();
 
-        Direccion direccion = new Direccion(calle, numeroCasa, barrio, ciudad, codigoPostal);
-
-        return direccion;
+        return new Direccion(calle, numeroCasa, barrio, ciudad, codigoPostal);
     }
 
 }
