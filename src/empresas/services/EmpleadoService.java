@@ -64,14 +64,11 @@ public class EmpleadoService {
             sc.nextLine();
             menu();
         }
-
     }
 
     private void crearEmpleado() {
         System.out.println("::CREAR EMPLEADOS::");
-
         System.out.println("::CREAR EMPLEADO::");
-
         System.out.println("Ingrese el documento del empleado");
         String documento;
         do{
@@ -80,18 +77,14 @@ public class EmpleadoService {
         System.out.println("Ingrese el nombre del empleado");
         String nombre = sc.next();
 
-
         int horas = sc.nextInt();
         try {
             System.out.println("Ingrese el numero de horas trabajadas");
             sc.nextInt();
-
         }catch (InputMismatchException inputMismatchException){
             System.out.println("ingrrse solo valores numericos");
             crearEmpleado();
         }
-
-
         double valor = sc.nextDouble();
         try{
             System.out.println("Ingrese el valor de la hora");
